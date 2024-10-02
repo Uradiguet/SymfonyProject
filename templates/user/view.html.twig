@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Informations du compte{% endblock %}
+
+{% block body %}
+    <h2>Détails du compte</h2>
+    <p>Titulaire: {{ compte.titulaire.login }}</p>
+    <p>Nom du compte: {{ compte.nom }}</p>
+    <p>Solde: {{ compte.solde }} €</p>
+    <a href="{{ path('compte_list') }}" class="btn btn-secondary">Retour à la liste des comptes</a>
+{% endblock %}
