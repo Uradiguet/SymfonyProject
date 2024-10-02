@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Utilisateurs{% endblock %}
+
+{% block body %}
+
+    {% for label, messages in app.flashes(['success', 'danger']) %}
+        {% for message in messages %}
+            <div class="alert alert-{{ label }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+
+    <a href="{{ url('user_add') }}" class="btn btn-default">Ajouter un utilisateur...</a>
+    <ul>
+        {% for u in users %}
+            <li>{{ u.login }} <a href="{{ url('user_delete',{id: u.id}) }}">X</a></li>
+        {% endfor %}
+    </ul>
+{% endblock %}
