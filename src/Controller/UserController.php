@@ -29,9 +29,13 @@ class UserController extends AbstractController
         $users=$this->utilisateurRepository->findAll();
         return $this->render('user/index.html.twig', [
             'users' => $users,
+            'menu' => [
+                ['caption' => 'Utilisateurs', 'route' => 'app_user'],
+                ['caption' => 'Ajouter un utilisateur', 'route' => 'user_add']
+            ]
         ]);
     }
-
+    
     #[Route("/add", name: 'user_add', methods: ['get'])]
     public function addUser():Response{
         $user =new Utilisateur();
@@ -40,7 +44,10 @@ class UserController extends AbstractController
             'action'=>$this->generateUrl('user_add')
         ]);
         $form->add('save',SubmitType::class,['label'=>'Valider']);
-        return $this->render('user/add.html.twig',['form'=>$form]);
+        return $this->render('user/add.html.twig',['form'=>$form,'menu'=>[
+            ['caption'=>'Utilisateurs','route'=>'app_user'],
+            ['caption'=>'Ajouter un utilisateur','route'=>'user_add']
+        ]]);
     }
 
     #[Route('/add',methods:['post'])]
@@ -72,4 +79,3 @@ class UserController extends AbstractController
         return $this->redirectToRoute("app_user");
     }
 }
-

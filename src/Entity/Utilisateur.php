@@ -6,10 +6,14 @@ use App\Repository\UtilisateurRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\PasswordStrength;
+use Symfony\Component\Validator\Constraints\Regex;
 
 #[ORM\Entity(repositoryClass: UtilisateurRepository::class)]
+#[UniqueEntity('login')]
 class Utilisateur
 {
     #[ORM\Id]
@@ -19,10 +23,12 @@ class Utilisateur
 
     #[ORM\Column(length: 50)]
     #[NotBlank]
+    #[Length(min:5,max:50,minMessage: 'Le login doit contenir au moins 5 caractères')]
+    #[Regex('/^[a-zA-Z0-9]+$/',message: 'Le login ne doit contenir que des caractères alphanumériques.')]
     private ?string $login = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    #[PasswordStrength(message: "Mot de passe pas assez fort !")]
+    #[PasswordStrength(message: 'Le mot de passe saisi n\'est pas assez fort !')]
     private ?string $password = null;
 
     /**

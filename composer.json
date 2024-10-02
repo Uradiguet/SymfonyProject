@@ -1,12 +1,10 @@
 {
-    "name": "symfony/skeleton",
     "type": "project",
     "license": "proprietary",
-    "description": "A minimal Symfony project recommended to create bare bones applications",
     "minimum-stability": "stable",
     "prefer-stable": true,
     "require": {
-        "php": ">=8.2",
+        "php": ">8.0",
         "ext-ctype": "*",
         "ext-iconv": "*",
         "doctrine/dbal": "^3",

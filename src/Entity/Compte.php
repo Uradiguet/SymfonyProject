@@ -32,12 +32,6 @@ class Compte
     private Collection $operations;
 
     /**
-     * @var Collection<int, Operation>
-     */
-    #[ORM\OneToMany(targetEntity: Operation::class, mappedBy: 'comptes', orphanRemoval: true)]
-    private Collection $operation;
-
-    /**
      * @var Collection<int, Partage>
      */
     #[ORM\OneToMany(targetEntity: Partage::class, mappedBy: 'compte', orphanRemoval: true)]
@@ -46,7 +40,6 @@ class Compte
     public function __construct()
     {
         $this->operations = new ArrayCollection();
-        $this->operation = new ArrayCollection();
         $this->partages = new ArrayCollection();
     }
 
@@ -119,14 +112,6 @@ class Compte
         }
 
         return $this;
-    }
-
-    /**
-     * @return Collection<int, Operation>
-     */
-    public function getOperation(): Collection
-    {
-        return $this->operation;
     }
 
     /**
