@@ -46,7 +46,7 @@ class UserController extends AbstractController
     public function addUser(): Response
     {
         $user = new Utilisateur();
-        $user->setLogin("Bob");
+        $user->setLogin("BobLennon");
         $form = $this->createForm(UtilisateurFormType::class, $user, [
             'action' => $this->generateUrl('user_add')
         ]);
@@ -129,7 +129,7 @@ class UserController extends AbstractController
             $operation = $form->getData();
 
             // Modifie le solde en fonction du type d'opération
-            if ($operation->getType() === 'debit') {
+            if ($operation->setTypeOperation() === 'debit') {
                 $compte->setSolde($compte->getSolde() - $operation->getMontant());
             } else {
                 $compte->setSolde($compte->getSolde() + $operation->getMontant());

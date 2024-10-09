@@ -5,7 +5,7 @@
 {% block body %}
     <h2 class="text-4xl font-extrabold dark:text-white">Utilisateurs</h2>
     <div class="divider"></div>
-    <a href="{{ url('user_add') }}" class="btn btn-secondary">Ajouter un utilisateur...</a>
+    <a href="{{ url('user_add') }}" class="btn btn-info">Ajouter un utilisateur...</a>
     <div class="divider"></div>
     {% for label, messages in app.flashes(['success', 'danger']) %}
         {% for message in messages %}
@@ -16,8 +16,9 @@
     {% endfor %}
     <ul>
     {% for u in users %}
-        <li>{{ u.login }} <a href="{{ url('user_delete',{id: u.id}) }}" class="btn btn-outline btn-error">X</a>
-            <a href="{{ url('operation_add', {id: u.id}) }}" class="btn btn-outline btn-accent">Ajouter une Operation...</a>
+        <div class="divider"></div>
+        <li>{{ u.login }} <a href="{{ url('user_delete',{id: u.id}) }}" class="btn btn-error">Supprimer</a>
+            <a href="{{ url('operation_add', {id: u.id}) }}" class="btn btn-warning">Ajouter une Operation...</a>
         </li>
     {% endfor %}
     </ul>

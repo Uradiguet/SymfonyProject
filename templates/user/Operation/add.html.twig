@@ -4,6 +4,7 @@
 
 {% block body %}
     <h2>Ajouter une opération pour le compte:{#  {{ utilisateur.login }}#}</h2>
+    <div class="divider"></div>
     {{ form_start(form) }}
     {{ form_row(form.typeOperation) }}
     {{ form_row(form.montant) }}
