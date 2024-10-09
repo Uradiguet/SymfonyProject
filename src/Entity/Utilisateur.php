@@ -49,6 +49,9 @@ class Utilisateur
     #[ORM\OneToMany(targetEntity: Partage::class, mappedBy: 'utilisateur', orphanRemoval: true)]
     private Collection $partages;
 
+    #[ORM\Column(length: 255)]
+    private ?string $roles = null;
+
     public function __construct()
     {
         $this->comptes = new ArrayCollection();
@@ -171,6 +174,18 @@ class Utilisateur
                 $partage->setUtilisateur(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getRoles(): ?string
+    {
+        return $this->roles;
+    }
+
+    public function setRoles(string $roles): static
+    {
+        $this->roles = $roles;
 
         return $this;
     }

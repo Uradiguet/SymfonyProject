@@ -16,7 +16,9 @@
     {% endfor %}
     <ul>
     {% for u in users %}
-        <li>{{ u.login }} <a href="{{ url('user_delete',{id: u.id}) }}">X</a></li>
+        <li>{{ u.login }} <a href="{{ url('user_delete',{id: u.id}) }}" class="btn btn-outline btn-error">X</a>
+            <a href="{{ url('operation_add', {id: u.id}) }}" class="btn btn-outline btn-accent">Ajouter une Operation...</a>
+        </li>
     {% endfor %}
     </ul>
 {% endblock %}

@@ -94,10 +94,8 @@ class UserController extends AbstractController
     #[Route('/compte/{id}', name: 'compte_view')]
     public function viewCompte(int $id): Response
     {
-        $compte = $this->compteRepository->find($id);
-        if (!$compte) {
-            throw $this->createNotFoundException("Le compte n'existe pas.");
-        }
+        $compte = $this->utilisateurRepository->find($id);
+
 
         return $this->render('view.html.twig', [
             'compte' => $compte,
@@ -107,16 +105,14 @@ class UserController extends AbstractController
     #[Route('/compte/{id}/operation/add', name: 'operation_add')]
     public function addOperation(int $id, Request $request, EntityManagerInterface $entityManager): Response
     {
-        $compte = $this->compteRepository->find($id);
-        if (!$compte) {
-            throw $this->createNotFoundException("Le compte n'existe pas.");
-        }
+        $compte = $this->utilisateurRepository->find($id);
+
 
         $operation = new Operation();
         $operation->setCompte($compte);
 
         $form = $this->createFormBuilder($operation)
-            ->add('type', ChoiceType::class, [
+            ->add('typeOperation', ChoiceType::class, [
                 'choices' => [
                     'Débit' => 'debit',
                     'Crédit' => 'credit'
@@ -145,9 +141,10 @@ class UserController extends AbstractController
             return $this->redirectToRoute('compte_view', ['id' => $id]);
         }
 
-        return $this->render('Operation/add.html.twig', [
+        return $this->render('user/Operation/add.html.twig', [
             'form' => $form->createView(),
             'compte' => $compte,
         ]);
     }
+
 }

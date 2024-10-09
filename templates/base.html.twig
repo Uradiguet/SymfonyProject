@@ -21,13 +21,13 @@
                 <div class="container mx-auto sm:px-6 lg:px-12">
                     <div class="navbar bg-base-100 w-full">
                         <a class="btn btn-ghost text-xl" href="/">CB App</a>
-                        {% block menu %}
+                        {#  {% block menu %}
                             {% for menuItem in menu %}
                                 <a href="{{ url(menuItem.route) }}" class="btn btn-ghost text-xl">
                                     {{ menuItem.caption }}
                                 </a>
                             {% endfor %}
-                        {% endblock %}
+                        {% endblock %}#}
                     </div>
                 </div>
             {% endblock %}

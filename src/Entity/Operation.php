@@ -67,15 +67,16 @@ class Operation
         return $this;
     }
 
-    public function getCompte(): ?Compte
+    public function getCompte(): ?Utilisateur
     {
-        return $this->compte;
+        return $this->utilisateur;
     }
 
-    public function setCompte(?Compte $compte): static
+    public function setCompte(?Utilisateur $compte): static
     {
-        $this->compte = $compte;
+        $this->utilisateur = $compte;
 
         return $this;
     }
+
 }
