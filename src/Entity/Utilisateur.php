@@ -23,8 +23,8 @@ class Utilisateur
 
     #[ORM\Column(length: 50)]
     #[NotBlank]
-    #[Length(min:5,max:50,minMessage: 'Le login doit contenir au moins 5 caractères')]
-    #[Regex('/^[a-zA-Z0-9]+$/',message: 'Le login ne doit contenir que des caractères alphanumériques.')]
+    #[Length(min: 5, max: 50, minMessage: 'Le login doit contenir au moins 5 caractères')]
+    #[Regex('/^[a-zA-Z0-9]+$/', message: 'Le login ne doit contenir que des caractères alphanumériques.')]
     private ?string $login = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -49,15 +49,26 @@ class Utilisateur
     #[ORM\OneToMany(targetEntity: Partage::class, mappedBy: 'utilisateur', orphanRemoval: true)]
     private Collection $partages;
 
+    /**
+     * @var Collection<int, Operation>
+     */
+    #[ORM\OneToMany(targetEntity: Operation::class, mappedBy: 'utilisateur')]
+    private Collection $operations;  // <-- Define the operations property
+
     #[ORM\Column(length: 255)]
     private ?string $roles = null;
 
+    #[ORM\Column]
+    private ?float $solde = null;
+
     public function __construct()
     {
+        $this->operations = new ArrayCollection(); // Initialize the collection
         $this->comptes = new ArrayCollection();
         $this->familles = new ArrayCollection();
         $this->partages = new ArrayCollection();
     }
+
 
     public function getId(): ?int
     {
@@ -186,6 +197,47 @@ class Utilisateur
     public function setRoles(string $roles): static
     {
         $this->roles = $roles;
+
+        return $this;
+    }
+
+    public function getSolde(): ?float
+    {
+        return $this->solde;
+    }
+
+    public function setSolde(float $solde): static
+    {
+        $this->solde = $solde;
+
+        return $this;
+    }
+    /**
+     * @return Collection|Operation[]
+     */
+    public function getOperations(): Collection
+    {
+        return $this->operations;
+    }
+
+    public function addOperation(Operation $operation): self
+    {
+        if (!$this->operations->contains($operation)) {
+            $this->operations[] = $operation;
+            $operation->setUtilisateur($this); // Set the utilisateur for the operation
+        }
+
+        return $this;
+    }
+
+    public function removeOperation(Operation $operation): self
+    {
+        if ($this->operations->removeElement($operation)) {
+            // Set the owning side to null (unless already changed)
+            if ($operation->getUtilisateur() === $this) {
+                $operation->setUtilisateur(null);
+            }
+        }
 
         return $this;
     }

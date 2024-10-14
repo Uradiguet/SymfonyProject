@@ -24,7 +24,7 @@ class Operation
 
     #[ORM\ManyToOne(inversedBy: 'operations')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Compte $compte = null;
+    private ?Utilisateur $utilisateur = null;
 
     public function getId(): ?int
     {
@@ -67,14 +67,22 @@ class Operation
         return $this;
     }
 
-    public function getCompte(): ?Utilisateur
+    /**
+     * @return bool|null
+     */
+    public function getTypeOperation(): ?bool
+    {
+        return $this->typeOperation;
+    }
+
+    public function getUtilisateur(): ?Utilisateur
     {
         return $this->utilisateur;
     }
 
-    public function setCompte(?Utilisateur $compte): static
+    public function setUtilisateur(?Utilisateur $utilisateur): static
     {
-        $this->utilisateur = $compte;
+        $this->utilisateur = $utilisateur;
 
         return $this;
     }
